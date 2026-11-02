@@ -1,9 +1,9 @@
 {
   "name": "Serie A Stats",
-  "id": "seriea-stats",
+  "id": "seriea-stats-app",
   "short_name": "Serie A Stats",
   "description": "Proiezioni statistiche dei calciatori di Serie A contro il prossimo avversario",
-  "start_url": "./?app=seriea-stats",
+  "start_url": "./?app=seriea-stats-app",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0e1116",
