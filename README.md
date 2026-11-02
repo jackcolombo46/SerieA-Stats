@@ -1,5 +1,8 @@
 # Serie A Stats
 
+> **Questa app non è più aggiornata.** Ora fa parte di **Sports Stats** (NBA e Serie A in un'unica app):
+> https://jackcolombo46.github.io/Sports-Stats/seriea/ · codice: https://github.com/jackcolombo46/Sports-Stats
+
 Web app che stima le statistiche più probabili dei calciatori di Serie A nella prossima partita,
 in base all'avversario. Funziona dal telefono e dal computer, senza installare nulla.
 È la versione calcio di [NBA Stats](https://github.com/jackcolombo46/NBA-Stats), con la stessa struttura.
