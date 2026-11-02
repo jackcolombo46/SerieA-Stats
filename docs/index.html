@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Serie A Stats</title>
 <meta name="theme-color" content="#0e1116">
 <link rel="manifest" href="manifest.webmanifest?v=2">
@@ -20,6 +20,11 @@
     --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
   }
   * { box-sizing: border-box; }
+  /* su telefono la pagina scorre solo in verticale: niente spostamenti laterali, niente zoom con il doppio tocco */
+  html, body { overflow-x: hidden; max-width: 100%; overscroll-behavior-x: none; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  html { touch-action: manipulation; }
+  .two > *, .grid > *, .wgrid > *, .hero > * { min-width: 0; }
+  .scroll { overscroll-behavior-x: contain; }
   body { margin: 0; background: var(--bg); color: var(--text);
          font: 15px/1.45 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; }
   header { padding: 22px 28px 0; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
@@ -144,6 +149,24 @@
   .form { white-space: nowrap; } .form i { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center;
           border-radius: 4px; font-style: normal; font-size: 11px; font-weight: 700; margin-left: 2px; color: #0e1116; }
   @media (max-width: 600px) {
+    /* 16px evita lo zoom automatico di iPhone quando si tocca la ricerca */
+    input, select { font-size: 16px; }
+    header { padding-top: calc(14px + env(safe-area-inset-top)); }
+    main { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+    .hero { padding: 14px; } .hero .vs { font-size: 16px; }
+    .kpis { width: 100%; justify-content: space-between; gap: 6px; } .kpi { text-align: center; }
+    .kpi span { font-size: 10px; letter-spacing: .3px; }
+    .match { padding: 10px 12px; } .mrow { width: 100%; justify-content: space-between; gap: 6px; font-size: 14px; }
+    .mrow b { font-size: 20px; } .odds { width: 100%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+    .odds div { min-width: 0; padding: 4px 2px; } .odds span { font-size: 9.5px; white-space: nowrap; }
+    .chip { font-size: 12px; padding: 4px 10px; }
+    /* tabelle: stanno nello schermo, senza scorrimento laterale */
+    .scroll { overflow-x: visible; }
+    .scroll table, .scroll .std { min-width: 0; font-size: 12.5px; table-layout: auto; }
+    .scroll th, .scroll td { padding: 7px 3px; } .scroll th { font-size: 10px; letter-spacing: 0; }
+    .scroll td:first-child { max-width: 34vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .hm2 { display: none; }
+    .wtools { font-size: 12px; } .box { grid-template-columns: repeat(4, 1fr); }
     .tabs { gap: 4px; } .tab { flex: 1; padding: 8px 4px; font-size: 13px; }
     .scroll .std { min-width: 0; font-size: 13px; } .std th, .std td { padding: 7px 4px; }
     .std .form i { width: 14px; height: 16px; line-height: 16px; font-size: 10px; margin-left: 1px; }
@@ -182,7 +205,7 @@
     Sul telefono: Condividi → "Aggiungi a schermata Home" (iPhone) oppure menu ⋮ → "Installa app" (Android).
   </footer>
 </main>
-<script src="model.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<script src="model.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

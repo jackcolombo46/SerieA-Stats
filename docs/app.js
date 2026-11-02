@@ -454,11 +454,11 @@
     const w = d.warnings.map(x => `<div class="warn">⚠ ${esc(x)}</div>`).join("");
     const k = d.player.keeper;
     const cards = g => g.rc ? "🟥" : g.yc ? "🟨" : "";
-    const recent = d.recent.map(g => `<tr><td>${esc(g.date.slice(5))}</td><td>${g.home ? "vs" : "@"} ${esc(T(g.opp).short)}</td><td>${g.min}${g.start ? "" : "<small>*</small>"}</td>${k
-      ? `<td>${g.sv}</td><td>${g.gc}</td>` : `<td>${g.gol}</td><td>${g.ast}</td><td>${g.sh}</td><td>${g.sot}</td><td>${g.fc}</td>`}<td>${cards(g)}</td></tr>`).join("");
+    const recent = d.recent.map(g => `<tr><td>${esc(g.date.slice(5))}</td><td>${g.home ? "vs" : "@"} ${esc(T(g.opp).abbr)}</td><td>${g.min}${g.start ? "" : "<small>*</small>"}</td>${k
+      ? `<td>${g.sv}</td><td>${g.gc}</td>` : `<td>${g.gol}</td><td>${g.ast}</td><td>${g.sh}</td><td>${g.sot}</td><td class="hm2">${g.fc}</td>`}<td>${cards(g)}</td></tr>`).join("");
     const h2h = d.h2h_games.length ? d.h2h_games.map(g => `<tr><td>${esc(g.date)}</td><td>${g.min}</td>${k ? `<td>${g.sv}</td>` : `<td>${g.gol}</td><td>${g.ast}</td><td>${g.sh}</td><td>${g.sot}</td>`}<td>${g.yc ? "🟨" : ""}</td></tr>`).join("")
       : `<tr><td colspan="7" style="color:var(--muted)">Nessun precedente nelle ultime stagioni</td></tr>`;
-    const head = k ? "<th>Par</th><th>GS</th>" : "<th>Gol</th><th>As</th><th>Tiri</th><th>InP</th><th>Falli</th>";
+    const head = k ? "<th>Par</th><th>GS</th>" : `<th>Gol</th><th>As</th><th>Tiri</th><th>InP</th><th class="hm2">Falli</th>`;
     const head2 = k ? "<th>Par</th>" : "<th>Gol</th><th>As</th><th>Tiri</th><th>InP</th>";
     return `
     <div class="hero">
@@ -491,9 +491,9 @@
     const st = (p, s) => p.stats.find(x => x.stat === s);
     const rows = t.players.filter(p => !p.player.keeper).map(p => {
       const warn = p.injury ? ` <span class="inj" title="${esc(p.injury.status)}">${esc((p.injury.status || "").slice(0, 3))}</span>` : "";
-      return `<tr class="click" data-pid="${p.player.id}" data-name="${esc(p.player.name)}"><td>${esc(p.player.name)}${warn}</td><td>${p.minutes}'</td>
+      return `<tr class="click" data-pid="${p.player.id}" data-name="${esc(p.player.name)}"><td>${esc(p.player.name)}${warn}</td><td class="hm2">${p.minutes}'</td>
         <td>${pct(st(p, "GOL").p1)}</td><td>${pct(st(p, "AST").p1)}</td><td>${st(p, "SH").proj.toFixed(1)}</td><td>${st(p, "SOT").proj.toFixed(1)}</td>
-        <td>${st(p, "FC").proj.toFixed(1)}</td><td>${st(p, "FS").proj.toFixed(1)}</td><td>${pct(st(p, "YC").p1)}</td></tr>`;
+        <td class="hm2">${st(p, "FC").proj.toFixed(1)}</td><td>${st(p, "FS").proj.toFixed(1)}</td><td>${pct(st(p, "YC").p1)}</td></tr>`;
     }).join("");
     const gks = t.players.filter(p => p.player.keeper).map(p =>
       `<span class="chip click" data-pid="${p.player.id}" data-name="${esc(p.player.name)}">🧤 ${esc(p.player.name)}: <b>${st(p, "SV").proj.toFixed(1)}</b> parate · porta inviolata <b>${pct(st(p, "CS").p1)}</b></span>`).join("");
@@ -502,7 +502,7 @@
       <h3>Chi è più probabile che faccia cosa · ${esc(t.team.name)} contro ${esc(t.opponent.short)}</h3>
       <div class="grid">${leaders}</div>
       <h3>Proiezioni per giocatore <small class="nt">(tocca un nome per il dettaglio · % = probabilità di almeno 1)</small></h3>
-      <div class="scroll"><table><tr><th>Giocatore</th><th>Min</th><th>Gol</th><th>Assist</th><th>Tiri</th><th>In porta</th><th>Falli</th><th>F. sub.</th><th>Giallo</th></tr>${rows}</table></div>
+      <div class="scroll"><table><tr><th>Giocatore</th><th class="hm2">Min</th><th>Gol</th><th>Ass.</th><th>Tiri</th><th>InP</th><th class="hm2">Falli</th><th>F.sub</th><th>Giallo</th></tr>${rows}</table></div>
       ${gks ? `<div class="opp" style="margin-top:10px">${gks}</div>` : ""}${absent}`;
   }
 
